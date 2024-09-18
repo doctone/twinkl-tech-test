@@ -1,24 +1,29 @@
+import { useState } from "react";
 import { usePosts } from "./usePosts";
+import { Center, VStack } from "@chakra-ui/react";
+import { Posts } from "./Posts/Posts";
+import { SearchBar } from "./Posts/SearchBar";
 
 const App = () => {
-  const { data, isLoading } = usePosts();
+  const { data: posts, isLoading } = usePosts();
+  const [searchTerm, setSearchTerm] = useState("");
 
-  if (isLoading || !data) {
+  if (isLoading || !posts) {
     return <div>Loading...</div>;
   }
+  const filteredPosts = posts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.body.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div>
-      <h1>Hello Twinkl!</h1>
-      <ul>
-        {data.map(({ body, id, title }) => (
-          <li key={id}>
-            <h2>{title}</h2>
-            <p>{body}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Center py={10} my={10}>
+      <VStack spacing={6} width="100%" align="center">
+        <SearchBar onChange={setSearchTerm} searchTerm={searchTerm} />
+        <Posts posts={filteredPosts} />
+      </VStack>
+    </Center>
   );
 };
 

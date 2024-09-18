@@ -1,4 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { act } from "react";
+
 import App from "./App";
 import { server } from ".././tests/msw";
 import { http, HttpResponse } from "msw";
@@ -40,5 +43,64 @@ describe("<App />", () => {
     expect(post).toBeInTheDocument();
   });
 
-  it.todo("should allow the user to search for posts");
+  it("should allow the user to search for posts", async () => {
+    server.use(
+      http.get(`${API_URL}/posts`, () => {
+        return HttpResponse.json<Post[]>([
+          { id: 1, body: "this is a post", title: "test-post", userId: 1 },
+          {
+            id: 2,
+            body: "this is another post",
+            title: "another post",
+            userId: 1,
+          },
+        ]);
+      })
+    );
+
+    render(
+      <MockApp>
+        <App />
+      </MockApp>
+    );
+
+    const searchInput = await screen.findByLabelText("Search Posts");
+    await userEvent.clear(searchInput);
+    await act(async () => {
+      await userEvent.type(searchInput, "another");
+    });
+
+    const post = await screen.findByText("another post");
+    expect(post).toBeInTheDocument();
+    expect(screen.getAllByRole("listitem")).toHaveLength(1);
+  });
+
+  describe("when no search meets no results", () => {
+    it("should display a message", async () => {
+      server.use(
+        http.get(`${API_URL}/posts`, () => {
+          return HttpResponse.json<Post[]>([
+            { id: 1, body: "this is a post", title: "test-post", userId: 1 },
+          ]);
+        })
+      );
+
+      render(
+        <MockApp>
+          <App />
+        </MockApp>
+      );
+
+      const searchInput = await screen.findByLabelText("Search Posts");
+      await userEvent.clear(searchInput);
+      await act(async () => {
+        await userEvent.type(searchInput, "not found");
+      });
+
+      const post = await screen.findByText(
+        "No posts match your search criteria."
+      );
+      expect(post).toBeInTheDocument();
+    });
+  });
 });
