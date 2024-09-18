@@ -1,11 +1,8 @@
 import { usePosts } from "./usePosts";
 
 const App = () => {
-  const { data, isLoading, isError } = usePosts();
+  const { data, isLoading } = usePosts();
 
-  if (isError) {
-    return <div>Error</div>;
-  }
   if (isLoading || !data) {
     return <div>Loading...</div>;
   }
