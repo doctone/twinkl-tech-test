@@ -2,7 +2,7 @@ import { useState } from "react";
 import { usePosts } from "./usePosts";
 import { Center, VStack } from "@chakra-ui/react";
 import { Posts } from "./Posts/Posts";
-import { SearchBar } from "./Posts/SearchBar";
+import { SearchBar } from "./SearchBar/SearchBar";
 
 const App = () => {
   const { data: posts, isLoading } = usePosts();
@@ -11,6 +11,7 @@ const App = () => {
   if (isLoading || !posts) {
     return <div>Loading...</div>;
   }
+
   const filteredPosts = posts.filter(
     (post) =>
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
