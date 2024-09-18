@@ -103,4 +103,36 @@ describe("<App />", () => {
       expect(post).toBeInTheDocument();
     });
   });
+
+  describe("deleting posts", () => {
+    it("should allow the user to delete a post", async () => {
+      const deleteSpy = vi.fn();
+      server.use(
+        http.get(`${API_URL}/posts`, () => {
+          return HttpResponse.json<Post[]>([
+            { id: 1, body: "this is a post", title: "test-post", userId: 1 },
+          ]);
+        }),
+        http.delete(`${API_URL}/posts/:id`, ({ params }) => {
+          deleteSpy(params);
+          return HttpResponse.json({});
+        })
+      );
+
+      render(
+        <MockApp>
+          <App />
+        </MockApp>
+      );
+      await screen.findByText("this is a post");
+
+      const deleteButton = await screen.findByText("Remove");
+      await act(async () => {
+        await userEvent.click(deleteButton);
+      });
+
+      expect(deleteSpy).toHaveBeenCalledWith({ id: "1" });
+      // expect(item).not.toBeInTheDocument();
+    });
+  });
 });

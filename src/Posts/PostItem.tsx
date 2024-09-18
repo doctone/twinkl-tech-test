@@ -1,7 +1,12 @@
 import { Box, Text, Heading, Stack, Button } from "@chakra-ui/react";
 import { Post } from "../api";
+import { useDeletePost } from "../usePosts";
 
-export const PostItem = ({ title, body }: Post) => {
+export const PostItem = ({ id, title, body }: Post) => {
+  const { mutate } = useDeletePost(id);
+  const handleDelete = () => {
+    mutate(id);
+  };
   return (
     <Box
       borderWidth="1px"
@@ -11,7 +16,7 @@ export const PostItem = ({ title, body }: Post) => {
       bg="white"
       shadow="md"
       width="100%"
-      maxW="800px"
+      maxW={["350px", "800px"]}
     >
       <Stack spacing={3} direction="row">
         <Box>
@@ -20,7 +25,9 @@ export const PostItem = ({ title, body }: Post) => {
           </Heading>
           <Text>{body}</Text>
         </Box>
-        <Button>Delete</Button>
+        <Box display="flex" alignItems="center">
+          <Button onClick={handleDelete}>Remove</Button>
+        </Box>
       </Stack>
     </Box>
   );

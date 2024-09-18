@@ -8,11 +8,13 @@ export const SearchBar = ({
   onChange: (value: string) => void;
 }) => {
   return (
-    <Box width="100%" maxW="800px">
-      <FormLabel htmlFor="search-input">Search Posts</FormLabel>
+    <Box width="100%" maxW={["350px", "800px"]}>
+      <FormLabel htmlFor="search-input" px={4}>
+        Search Posts
+      </FormLabel>
       <Input
         id="search-input"
-        placeholder="Search posts..."
+        placeholder="e.g. 'search term'"
         value={searchTerm}
         onChange={(e) => onChange(e.target.value)}
         mb={6}
