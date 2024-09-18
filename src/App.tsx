@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
+import { usePosts } from "./usePosts";
 
 const App = () => {
-  const [data, setData] = useState(null);
+  const { data, isLoading, isError } = usePosts();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos/1"
-      );
-      const data = await response.json();
-      return data;
-    };
-    fetchData().then((data) => setData(data));
-  }, []);
+  if (isError) {
+    return <div>Error</div>;
+  }
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h1>Hello Twinkl!</h1>
+      <ul>
+        {data.map(({ body, id, title }) => (
+          <li key={id}>
+            <h2>{title}</h2>
+            <p>{body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
