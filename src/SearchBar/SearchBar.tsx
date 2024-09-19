@@ -18,7 +18,7 @@ export const SearchBar = ({
         value={searchTerm}
         onChange={(e) => onChange(e.target.value)}
         mb={6}
-        w={["100%"]}
+        w="100%"
         bg="white"
       />
     </Box>

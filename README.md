@@ -98,3 +98,17 @@ yarn format
 ```
 yarn test
 ```
+
+## Notes
+
+### Stack
+
+- tanstack-query -> handling all the state management of fetched data
+- msw -> mocking API calls
+- chakra -> semantic, accessible UI components
+
+### Options for extension:
+
+- more operations ( Create, Edit/update posts )
+- pagination of fetching posts
+- auth flow, utilize userIds of posts

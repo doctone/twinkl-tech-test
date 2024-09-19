@@ -75,7 +75,7 @@ describe("<App />", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(1);
   });
 
-  describe("when no search meets no results", () => {
+  describe("when search meets no results", () => {
     it("should display a message", async () => {
       server.use(
         http.get(`${API_URL}/posts`, () => {
@@ -97,10 +97,9 @@ describe("<App />", () => {
         await userEvent.type(searchInput, "not found");
       });
 
-      const post = await screen.findByText(
-        "No posts match your search criteria."
-      );
-      expect(post).toBeInTheDocument();
+      await expect(
+        screen.findByText("No posts match your search criteria.")
+      ).resolves.toBeInTheDocument();
     });
   });
 
