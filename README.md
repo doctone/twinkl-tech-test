@@ -110,5 +110,13 @@ yarn test
 ### Options for extension:
 
 - more operations ( Create, Edit/update posts )
+- fuse JS for fuzzy search
 - pagination of fetching posts
+  - but the API doesn't support this
 - auth flow, utilize userIds of posts
+
+## Docker
+
+You can run the app with `docker compose up` if you want the run the production-ready app.
+
+It will run the app at http://localhost:80 and any changes that are made in your `/dist` folder will be mounted directly into the container, giving you hot reload by just running `npm run build` when you're developing.
