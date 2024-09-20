@@ -9,7 +9,6 @@ export const Posts = ({ posts }: { posts: Post[] }) => {
         {posts.map((post) => (
           <ListItem key={post.id} display="flex">
             <PostItem
-              key={post.id}
               id={post.id}
               title={post.title}
               body={post.body}

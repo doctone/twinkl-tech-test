@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { usePosts } from "./usePosts";
-import { Center, VStack, Container } from "@chakra-ui/react";
+import { Center, VStack } from "@chakra-ui/react";
 import { Posts } from "./Posts/Posts";
 import { SearchBar } from "./SearchBar/SearchBar";
 
 const App = () => {
-  const { data: posts, isLoading } = usePosts();
+  const { data: posts, isLoading, isError, error } = usePosts();
   const [searchTerm, setSearchTerm] = useState("");
 
   if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error:{error.message}</div>;
   }
 
   const filteredPosts =

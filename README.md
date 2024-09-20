@@ -110,7 +110,10 @@ yarn test
 ### Options for extension:
 
 - more operations ( Create, Edit/update posts )
-- fuse JS for fuzzy search
+- search
+  - fuse JS for fuzzy search
+  - debounce - potentially filter on the server rather than client
+  - minimum character search
 - pagination of fetching posts
   - but the API doesn't support this
 - auth flow, utilize userIds of posts
