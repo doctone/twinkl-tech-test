@@ -17,13 +17,13 @@ describe("<App />", () => {
     server.use(
       http.get(`${API_URL}/posts`, () => {
         return HttpResponse.json([]);
-      })
+      }),
     );
 
     render(
       <MockApp>
         <App />
-      </MockApp>
+      </MockApp>,
     );
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
@@ -34,13 +34,13 @@ describe("<App />", () => {
         return HttpResponse.json<Post[]>([
           { id: 1, body: "this is a post", title: "test-post", userId: 1 },
         ]);
-      })
+      }),
     );
 
     render(
       <MockApp>
         <App />
-      </MockApp>
+      </MockApp>,
     );
 
     const post = await screen.findByRole("listitem");
@@ -59,13 +59,13 @@ describe("<App />", () => {
             userId: 1,
           },
         ]);
-      })
+      }),
     );
 
     render(
       <MockApp>
         <App />
-      </MockApp>
+      </MockApp>,
     );
 
     const searchInput = await screen.findByLabelText("Search Posts");
@@ -86,13 +86,13 @@ describe("<App />", () => {
           return HttpResponse.json<Post[]>([
             { id: 1, body: "this is a post", title: "test-post", userId: 1 },
           ]);
-        })
+        }),
       );
 
       render(
         <MockApp>
           <App />
-        </MockApp>
+        </MockApp>,
       );
 
       const searchInput = await screen.findByLabelText("Search Posts");
@@ -102,7 +102,7 @@ describe("<App />", () => {
       });
 
       await expect(
-        screen.findByText("No posts match your search criteria.")
+        screen.findByText("No posts match your search criteria."),
       ).resolves.toBeInTheDocument();
     });
   });
@@ -119,13 +119,13 @@ describe("<App />", () => {
         http.delete(`${API_URL}/posts/:id`, ({ params }) => {
           deleteSpy(params);
           return HttpResponse.json({});
-        })
+        }),
       );
 
       render(
         <MockApp>
           <App />
-        </MockApp>
+        </MockApp>,
       );
       await screen.findByText("this is a post");
 
