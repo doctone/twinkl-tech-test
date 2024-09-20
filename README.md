@@ -27,11 +27,11 @@ https://jsonplaceholder.typicode.com/guide/
 
 ##### Testing
 
-- Write sufficient tests to satisfy a production-ready application. - []
+- Write sufficient tests to satisfy a production-ready application. - [x]
 
 ##### Documentation
 
-- Add appropriate documentation for your application. - [ ]
+- Add appropriate documentation for your application. - [x]
 
 #### Wireframes
 
@@ -54,17 +54,17 @@ https://jsonplaceholder.typicode.com/guide/
 #### Clone the repository:
 
 ```
-git clone https://github.com/twinkltech/twinkl-react-tech-test.git
+git clone https://github.com/doctone/twinkl-tech-test
 ```
 
 ```
-cd twinkl-react-tech-test
+cd twinkl-tech-test
 ```
 
 #### Install dependencies:
 
 ```
-yarn
+npm i
 ```
 
 ### Scripts
@@ -72,31 +72,31 @@ yarn
 #### Development Server: Start the development server.
 
 ```
-yarn dev
+npm run dev
 ```
 
 #### Lint: Lint the codebase.
 
 ```
-yarn lint
+npm run lint
 ```
 
 #### Lint & Fix: Lint and automatically fix issues in the codebase.
 
 ```
-yarn lint:fix
+npm run lint:fix
 ```
 
 #### Format: Format the codebase using Prettier.
 
 ```
-yarn format
+npm run format
 ```
 
 #### Test: Run the test suite.
 
 ```
-yarn test
+npm run test
 ```
 
 ## Notes
